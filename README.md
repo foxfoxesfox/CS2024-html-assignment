@@ -1,5 +1,5 @@
 # CS2024-html-assignment
-HTML assignment for CS2024: a 3-page website for **Ember & Oak**, a fictional café for students.
+HTML assignment for CS2024: a 3-page website for **Ember & Oak**, a fictional student café at North Spine, NTU Singapore.
 
 Open `index.html` in a browser (desktop).
 

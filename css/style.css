@@ -537,3 +537,6 @@ a { color: inherit; }
 .story-split h2 { margin-top: 0; }
 .story-split h2 + p { margin-top: 16px; }
 .hero-actions .btn { flex-shrink: 0; white-space: nowrap; }
+
+.story-hero img { object-position: center 35%; }
+.taped .credit { font-family: var(--font-print); font-size: 13px; }
