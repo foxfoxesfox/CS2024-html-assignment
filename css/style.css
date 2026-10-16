@@ -543,3 +543,4 @@ a { color: inherit; }
 
 .copyright { grid-column: 1 / -1; margin-top: -32px; font-size: 15px; }
 .site-footer .pen-link { background-image: linear-gradient(#fff, #fff); }
+.footer-small, .copyright { text-align: center; }
