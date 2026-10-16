@@ -1,0 +1,539 @@
+/* Ember & Oak — exercise-book notes.
+   Everything sits on a 32px ruled line, so line-heights and spacing are multiples of 32 (or 16). */
+
+:root {
+  --paper: #fdfdfb;
+  --rule: #d3e2f2;
+  --margin: #e5675d;
+  --margin-ink: #c0392f; /* margin red, darkened for text contrast */
+  --ink: #1c2230;
+  --ink-soft: #485266;
+  --pen: #2346a8;
+  --pen-dark: #182f73;
+  --note: #ffe66b;
+  --tape: rgba(236, 228, 200, 0.75);
+
+  --line: 32px;
+  --sheet: 1200px;
+  --margin-x: 112px; /* where the red margin line sits inside the sheet */
+
+  --font-print: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-hand: "Kalam", "Comic Sans MS", cursive;
+
+  /* motion tokens (transitions.dev scale) */
+  --duration-fast: 250ms;
+  --duration-medium: 350ms;
+  --ease-smooth-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-font-smoothing: antialiased; }
+
+body {
+  margin: 0;
+  min-width: var(--sheet);
+  color: var(--ink);
+  font-family: var(--font-print);
+  font-size: 18px;
+  line-height: var(--line);
+  background-color: var(--paper);
+  /* the ruled lines; the header band above them stays blank like a real exercise book */
+  background-image: repeating-linear-gradient(to bottom, transparent 0 31px, var(--rule) 31px 32px);
+  background-position: 0 160px;
+  background-repeat: repeat-x;
+  background-size: 100% calc(100% - 160px);
+}
+
+::selection { background: var(--note); color: var(--ink); }
+
+img { display: block; max-width: 100%; }
+
+h1, h2, h3, p, ul, ol, dl, dd, figure { margin: 0; }
+
+a { color: inherit; }
+
+:focus-visible { outline: 3px solid var(--pen); outline-offset: 3px; border-radius: 2px; }
+
+/* the sheet: centred column with the red double margin line */
+.sheet {
+  position: relative;
+  width: var(--sheet);
+  margin: 0 auto;
+  padding-left: calc(var(--margin-x) + 48px);
+  padding-right: 64px;
+}
+
+.sheet::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--margin-x);
+  width: 5px;
+  border-left: 1.5px solid var(--margin);
+  border-right: 1.5px solid var(--margin);
+  pointer-events: none;
+}
+
+/* ---------- header (the blank band at the top of the page) ---------- */
+
+.site-header {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+}
+
+.logo img { width: 52px; height: 52px; }
+
+.logo-name {
+  display: block;
+  font-size: 28px;
+  line-height: 32px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.logo-tag {
+  display: block;
+  font-family: var(--font-hand);
+  color: var(--pen);
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.site-nav ul {
+  display: flex;
+  gap: 40px;
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav a {
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.site-nav a[aria-current="page"] { color: var(--pen); }
+
+/* signature: a ballpoint stroke draws under the link from left to right */
+.pen-link {
+  text-decoration: none;
+  background-image: linear-gradient(var(--pen), var(--pen));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 2px;
+  padding-bottom: 2px;
+  transition: background-size var(--duration-medium) var(--ease-smooth-out);
+}
+
+.pen-link:hover,
+.pen-link[aria-current="page"] { background-size: 100% 2px; }
+
+/* ---------- shared bits ---------- */
+
+.hand {
+  font-family: var(--font-hand);
+  color: var(--pen);
+}
+
+.btn {
+  display: inline-block;
+  padding: 0 28px;
+  height: 56px;
+  line-height: 56px;
+  border-radius: 6px;
+  background: var(--pen);
+  color: #fff;
+  font-weight: 700;
+  font-size: 18px;
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(24, 47, 115, 0.25);
+  transition: background-color var(--duration-fast) var(--ease-smooth-out);
+}
+
+.btn:hover { background: var(--pen-dark); }
+
+.section-title {
+  font-size: 40px;
+  line-height: 64px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* a photo stuck onto the page with two strips of tape */
+.taped {
+  position: relative;
+  background: #fff;
+  padding: 12px;
+  box-shadow: 0 6px 18px rgba(28, 34, 48, 0.14), 0 1px 3px rgba(28, 34, 48, 0.1);
+}
+
+.taped img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  outline: 1px solid rgba(0, 0, 0, 0.06);
+  outline-offset: -1px;
+}
+
+.taped::before,
+.taped::after {
+  content: "";
+  position: absolute;
+  top: -14px;
+  width: 96px;
+  height: 28px;
+  background: var(--tape);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.taped::before { left: 24px; transform: rotate(-6deg); }
+.taped::after { right: 24px; transform: rotate(5deg); }
+
+.taped figcaption {
+  font-family: var(--font-hand);
+  color: var(--ink-soft);
+  font-size: 17px;
+  line-height: 24px;
+  padding-top: 8px;
+}
+
+.tilt-left { transform: rotate(-1.5deg); }
+.tilt-right { transform: rotate(1.5deg); }
+
+/* sticky note: the one promotion per page */
+.sticky {
+  position: relative;
+  width: 264px;
+  padding: 24px 24px 28px;
+  background: var(--note);
+  font-family: var(--font-hand);
+  font-size: 20px;
+  line-height: 28px;
+  color: var(--ink);
+  transform: rotate(-3deg);
+  box-shadow: 0 10px 20px rgba(28, 34, 48, 0.16), 0 2px 4px rgba(28, 34, 48, 0.1);
+  transition: transform var(--duration-fast) var(--ease-smooth-out),
+              box-shadow var(--duration-fast) var(--ease-smooth-out);
+}
+
+.sticky:hover {
+  transform: rotate(-3deg) translateY(-6px);
+  box-shadow: 0 18px 28px rgba(28, 34, 48, 0.18), 0 3px 6px rgba(28, 34, 48, 0.1);
+}
+
+.sticky strong {
+  display: block;
+  font-size: 26px;
+  line-height: 32px;
+}
+
+/* note written in the left margin */
+.margin-note {
+  position: absolute;
+  left: 8px;
+  width: 96px;
+  font-family: var(--font-hand);
+  color: var(--margin-ink);
+  font-size: 17px;
+  line-height: 24px;
+  text-align: right;
+  transform: rotate(-4deg);
+}
+
+/* ---------- home ---------- */
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  gap: 64px;
+  padding-top: 64px;
+  padding-bottom: 160px;
+}
+
+.hero h1 {
+  font-size: 72px;
+  line-height: 80px;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.hero h1 em {
+  font-style: normal;
+  color: var(--pen);
+}
+
+.hero-lead {
+  max-width: 34em;
+  margin-top: 32px;
+  font-size: 21px;
+  color: var(--ink-soft);
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-top: 48px;
+}
+
+.hero-actions .hand { font-size: 22px; }
+
+.hero-photo { position: relative; padding-top: 16px; }
+.hero-photo .taped { height: 440px; }
+.hero-photo .sticky { position: absolute; left: -32px; bottom: -120px; }
+
+.favourites { padding-bottom: 96px; }
+
+.favourites-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 64px;
+  margin-top: 32px;
+}
+
+.feature .taped { height: 400px; }
+
+.feature h3 {
+  margin-top: 32px;
+  font-size: 28px;
+  line-height: 32px;
+  font-weight: 800;
+}
+
+.feature p { margin-top: 16px; color: var(--ink-soft); max-width: 32em; }
+
+.price {
+  font-family: var(--font-hand);
+  color: var(--pen);
+  font-size: 24px;
+  white-space: nowrap;
+}
+
+.pick-list { padding: 0; list-style: none; }
+
+.pick-list li {
+  display: grid;
+  grid-template-columns: 128px 1fr auto;
+  gap: 24px;
+  align-items: start;
+  padding: 16px 0 32px;
+}
+
+.pick-list .taped { height: 128px; padding: 8px; }
+.pick-list .taped::before, .pick-list .taped::after { width: 56px; height: 20px; top: -10px; }
+
+.pick-list h3 { font-size: 22px; line-height: 32px; font-weight: 800; }
+.pick-list p { color: var(--ink-soft); font-size: 17px; }
+
+.more-link {
+  display: inline-block;
+  margin-top: 16px;
+  font-weight: 700;
+  color: var(--pen);
+}
+
+.reasons { padding-bottom: 128px; }
+
+.ticks {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 64px;
+  margin-top: 32px;
+  padding: 0;
+  list-style: none;
+}
+
+.ticks li {
+  position: relative;
+  padding: 0 0 32px 48px;
+}
+
+.ticks li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 28px;
+  height: 28px;
+  background: url("../images/tick.svg") no-repeat center / contain;
+}
+
+.ticks strong { display: block; font-size: 21px; }
+.ticks span { color: var(--ink-soft); }
+
+/* ---------- menu ---------- */
+
+.page-head { padding-top: 64px; padding-bottom: 32px; }
+
+.page-head h1 {
+  font-size: 64px;
+  line-height: 64px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.page-head p { margin-top: 32px; font-size: 21px; color: var(--ink-soft); max-width: 36em; }
+
+.menu-layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 80px;
+  padding-bottom: 128px;
+}
+
+.menu-section + .menu-section { margin-top: 64px; }
+
+.menu-section h2 {
+  font-size: 30px;
+  line-height: 64px;
+  font-weight: 800;
+}
+
+.menu-list { margin: 0; }
+
+.menu-item {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.menu-item dt { font-weight: 600; white-space: nowrap; }
+
+/* dotted leader between the item and its price */
+.menu-item::after {
+  content: "";
+  order: 1;
+  flex: 1;
+  border-bottom: 2px dotted #aab4c6;
+  transform: translateY(-6px);
+}
+
+.menu-item dd { order: 2; }
+
+.menu-desc {
+  color: var(--ink-soft);
+  font-size: 16px;
+}
+
+.menu-side { padding-top: 32px; }
+.menu-side .taped { height: 420px; }
+.menu-side .sticky { margin: 64px 0 0 24px; }
+
+.visit {
+  margin-top: 64px;
+}
+
+.visit h2 { font-size: 26px; line-height: 32px; font-weight: 800; }
+.visit p { margin-top: 16px; }
+
+/* ---------- story ---------- */
+
+.story-hero .taped { height: 480px; }
+
+.article {
+  position: relative;
+  max-width: 680px;
+  padding: 64px 0 32px;
+}
+
+.article h2,
+.story-split h2 {
+  margin-top: 64px;
+  font-size: 32px;
+  line-height: 64px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.article p { margin-top: 16px; }
+.article p:first-of-type { margin-top: 0; }
+
+.article .lead { font-size: 22px; line-height: 32px; color: var(--ink-soft); }
+
+.story-split {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 56px;
+  width: 960px;
+  margin-top: 32px;
+}
+
+.story-split .taped { height: 380px; }
+
+.pull {
+  margin: 48px 0;
+  font-family: var(--font-hand);
+  color: var(--pen);
+  font-size: 32px;
+  line-height: 40px;
+  transform: rotate(-1deg);
+}
+
+.story-close {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-top: 64px;
+}
+
+/* ---------- footer: the notebook's back cover ---------- */
+
+.site-footer {
+  background: var(--pen-dark);
+  color: #e8edfb;
+}
+
+.site-footer .sheet {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 48px;
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+.site-footer .sheet::before { display: none; }
+
+.site-footer h2 {
+  font-size: 18px;
+  line-height: 32px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.site-footer p, .site-footer dl { color: #c9d3f0; }
+
+.site-footer .hand { color: var(--note); font-size: 22px; }
+
+.hours { display: grid; grid-template-columns: auto 1fr; gap: 0 24px; }
+.hours dd { font-variant-numeric: tabular-nums; }
+
+.site-footer ul { padding: 0; list-style: none; }
+
+.footer-small {
+  grid-column: 1 / -1;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  font-size: 15px;
+}
+
+.site-footer a { color: #fff; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pen-link, .btn, .sticky { transition: none; }
+}
+
+.story-split h2 { margin-top: 0; }
+.story-split h2 + p { margin-top: 16px; }
+.hero-actions .btn { flex-shrink: 0; white-space: nowrap; }

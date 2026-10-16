@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ember &amp; Oak | Study café</title>
+  <meta name="description" content="Ember & Oak is a neighbourhood coffee shop made for long study sessions: big tables, a plug at every seat and free filter refills.">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="images/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="sheet site-header">
+    <a class="logo" href="index.html">
+      <img src="images/favicon.svg" alt="">
+      <span>
+        <span class="logo-name">Ember &amp; Oak</span>
+        <span class="logo-tag">coffee &amp; study café</span>
+      </span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a class="pen-link" href="index.html" aria-current="page">Home</a></li>
+        <li><a class="pen-link" href="menu.html">Menu</a></li>
+        <li><a class="pen-link" href="story.html">Our story</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="sheet hero">
+      <span class="margin-note" style="top: 72px;">open late on weekdays!</span>
+      <div>
+        <h1>Good coffee for <em>long study sessions.</em></h1>
+        <p class="hero-lead">Big oak tables, a plug at every seat and free refills on filter coffee. Bring your laptop and your reading list. Stay as long as you need.</p>
+        <div class="hero-actions">
+          <a class="btn" href="menu.html">See the menu</a>
+          <span class="hand">Till 11pm on weekdays</span>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <figure class="taped tilt-right">
+          <img src="images/hero-latte-laptop.jpg" alt="A latte held over an open laptop on a wooden café table">
+        </figure>
+        <aside class="sticky" aria-label="Promotion">
+          <strong>Exam week deal</strong>
+          Any large drink + a butter croissant for $6.50 with your student ID.
+        </aside>
+      </div>
+    </section>
+
+    <section class="sheet favourites" aria-labelledby="fav-title">
+      <h2 class="section-title" id="fav-title">Today’s favourites</h2>
+      <div class="favourites-grid">
+        <article class="feature">
+          <figure class="taped tilt-left">
+            <img src="images/latte-pour.jpg" alt="Barista pouring milk into a latte, making a leaf pattern">
+          </figure>
+          <h3>The Night Owl <span class="price">$4.80</span></h3>
+          <p>Our drink of the month: a double-shot oat flat white with a pinch of cinnamon. Strong enough for chapter six, smooth enough for chapter seven.</p>
+        </article>
+
+        <div>
+          <ul class="pick-list">
+            <li>
+              <figure class="taped tilt-right"><img src="images/iced-latte.jpg" alt="Iced latte in a tall glass"></figure>
+              <div>
+                <h3>Iced vanilla latte</h3>
+                <p>Espresso, cold milk and house vanilla over ice.</p>
+              </div>
+              <span class="price">$4.80</span>
+            </li>
+            <li>
+              <figure class="taped tilt-left"><img src="images/croissant.jpg" alt="Golden butter croissant on a cork coaster"></figure>
+              <div>
+                <h3>Butter croissant</h3>
+                <p>Baked every morning at 6. Gone by noon on exam days.</p>
+              </div>
+              <span class="price">$3.00</span>
+            </li>
+          </ul>
+          <a class="more-link pen-link" href="menu.html">See the full menu</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="sheet reasons" aria-labelledby="why-title">
+      <h2 class="section-title" id="why-title">Why students stay</h2>
+      <ul class="ticks">
+        <li><strong>A plug at every seat</strong><span>No more fighting over the one socket by the door.</span></li>
+        <li><strong>Free filter refills</strong><span>Buy one filter coffee, refill it all day.</span></li>
+        <li><strong>Quiet room upstairs</strong><span>Phones on silent and no music after 6pm.</span></li>
+        <li><strong>10% off with student ID</strong><span>Every drink, every day. Just show your card.</span></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="sheet">
+      <div>
+        <h2>Ember &amp; Oak</h2>
+        <p>18 College Lane, next to the main library.</p>
+        <p class="hand">See you at the big table.</p>
+      </div>
+      <div>
+        <h2>Opening hours</h2>
+        <dl class="hours">
+          <dt>Mon – Fri</dt><dd>7:00 – 23:00</dd>
+          <dt>Sat – Sun</dt><dd>8:00 – 22:00</dd>
+        </dl>
+      </div>
+      <div>
+        <h2>Pages</h2>
+        <ul>
+          <li><a class="pen-link" href="index.html">Home</a></li>
+          <li><a class="pen-link" href="menu.html">Menu</a></li>
+          <li><a class="pen-link" href="story.html">Our story</a></li>
+        </ul>
+      </div>
+      <p class="footer-small">Ember &amp; Oak is a fictional café made for a CS2024 assignment. Photos from Unsplash.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
